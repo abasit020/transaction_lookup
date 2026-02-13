@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transaction Lookup Tool</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js" defer></script>
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <main class="app">
+      <header>
+        <h1>Transaction Lookup Tool</h1>
+        <p>
+          Upload Sales and Account Excel files, choose the right columns, and generate
+          account-level transaction totals instantly.
+        </p>
+      </header>
+
+      <section class="panel uploads">
+        <div class="file-input-group">
+          <label for="salesFile">Sales Data (.xlsx)</label>
+          <input type="file" id="salesFile" accept=".xlsx" />
+          <p id="salesStatus" class="status-text">No sales file loaded.</p>
+        </div>
+
+        <div class="file-input-group">
+          <label for="accountFile">Customer / Account Details (.xlsx)</label>
+          <input type="file" id="accountFile" accept=".xlsx" />
+          <p id="accountStatus" class="status-text">No account file loaded.</p>
+        </div>
+      </section>
+
+      <section class="panel selectors">
+        <h2>Column Mapping</h2>
+        <div class="selector-grid">
+          <div>
+            <label for="salesLookupColumn">Lookup column in Sales file</label>
+            <select id="salesLookupColumn" disabled></select>
+          </div>
+
+          <div>
+            <label for="accountLookupColumn">Lookup column in Account file</label>
+            <select id="accountLookupColumn" disabled></select>
+          </div>
+
+          <div>
+            <label for="salesAmountColumn">Amount column in Sales file</label>
+            <select id="salesAmountColumn" disabled></select>
+          </div>
+        </div>
+
+        <button id="processBtn" disabled>Process Transactions</button>
+        <p id="message" class="message"></p>
+      </section>
+
+      <section class="panel results" id="resultsSection" hidden>
+        <h2>Results</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Account Number</th>
+                <th>Transaction Count</th>
+                <th>Total Amount</th>
+              </tr>
+            </thead>
+            <tbody id="resultsBody"></tbody>
+          </table>
+        </div>
+
+        <div class="totals">
+          <p><strong>Grand Total Transactions:</strong> <span id="grandCount">0</span></p>
+          <p><strong>Grand Total Amount:</strong> <span id="grandAmount">0.00</span></p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
